@@ -1,0 +1,5 @@
+boto3
+dotenv
+pandas==2.2.3
+pymongo
+pytz

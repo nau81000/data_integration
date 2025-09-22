@@ -1,0 +1,31 @@
+services:
+  meteo_sync:
+    container_name: meteo_sync
+    restart: on-failure
+    networks:
+      - frontend
+    build:
+      context: .
+      dockerfile_inline: |
+        FROM python:3.12-slim
+        WORKDIR /var/tmp/meteo
+        COPY meteo_sync.py .
+        COPY requirements.txt .
+        RUN apt-get update -y && apt-get install -y --no-install-recommends gcc vim && rm -rf /var/lib/apt/lists/*
+        RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+    command:
+      - bash
+      - -c
+      - >
+        python3 meteo_sync.py;
+        sleep infinity;
+    environment:
+      DB_SERVER: <mongo_url>
+      DB_NAME: <db_name>
+      AWS_ACCESS_KEY_ID: <AWS_ACCESS_KEY_ID>
+      AWS_SECRET_ACCESS_KEY: <AWS_SECRET_ACCESS_KEY>
+
+networks:
+  frontend:
+    # Specify driver options
+    driver: bridge
