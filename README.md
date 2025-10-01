@@ -8,6 +8,14 @@ Ce projet fait l'intégration dans une base de données Mongo sur AWS de sources
 - docker-compose
 - AWS DocumentDB (MONGODB Compatible)
 
+## Structure principale du projet
+
+```
+├── docker-compose.yml.template     # Fichier yaml spécifiant les services (à copier et compléter)
+├── meteo_sync.py                   # Script synchronisant les données météo
+├── results.pdf                     # Résultats d'analyse
+```
+
 ## Logigramme
 
 ![architecture](images/logigramme.png)
